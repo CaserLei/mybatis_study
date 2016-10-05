@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="one2many_Student">
+	<resultMap type="day67.one2many.entity.Student" id="StudentMap">
+		<id property="id" column="sid"/>
+		<result property="name" column="sname"/>
+	    <association property="grades" resultMap="one2many_Grades.GradesMap"/>
+	</resultMap>
+	<select id="findStudentByGradeName" parameterType="string" resultMap="StudentMap">
+		select s.sid,s.sname,g.gid,g.gname
+		from grades g,student s
+		where g.gid = s.sgid
+		and g.gname = #{name}
+	</select>
+	
+	
+	
+</mapper>

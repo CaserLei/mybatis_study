@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<properties resource="db.properties"/>
+	
+	<typeAliases>
+		<typeAlias type="day66.app01.entity.Student" alias="student"/>
+	</typeAliases>
+	
+	<!-- 连接环境信息，取一个任意唯一的名字 -->
+	<environments default="mysql_development">
+		
+		<environment id="mysql_development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${mysql.driver}"/>	
+				<property name="url" value="${mysql.url}"/>	
+				<property name="username" value="${mysql.username}"/>	
+				<property name="password" value="${mysql.password}"/>	
+			</dataSource>
+		</environment>
+		
+		<environment id="oracle_development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${oracle.driver}"/>	
+				<property name="url" value="${oracle.url}"/>	
+				<property name="username" value="${oracle.username}"/>	
+				<property name="password" value="${oracle.password}"/>	
+			</dataSource>
+		</environment>	
+	</environments>
+	
+	<mappers>
+		<mapper resource="day67/many2many/entity/CoursesMapper.xml"/>
+		<mapper resource="day67/many2many/entity/StudentMapper.xml"/>
+	</mappers>
+	
+</configuration>

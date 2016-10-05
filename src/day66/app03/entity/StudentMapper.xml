@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student_app03">
+	<resultMap type="day66.app03.entity.Student" id="studentMap">
+		<id property="id" column="id"/>
+		<result property="name" column="ename"/>
+		<result property="sal" column="sal"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="day66.app03.entity.Student">
+	   insert into students(id,ename,sal)values(#{id},#{name},#{sal})
+	</insert>
+	
+	
+	<select id="findAll" resultMap="studentMap">
+	    select id,ename,sal from students 
+	</select>
+	
+	<select id="findAllWithFy" parameterType="map" resultMap="studentMap">
+	    select id,ename,sal from students limit #{pageStart},#{pageSize}
+	</select>
+	
+	<select id="findAllByNameWithFy" parameterType="map" resultMap="studentMap">
+	    select id,ename,sal from students where ename like #{name} limit #{pageStart},#{pageSize}
+	</select>
+	
+</mapper>

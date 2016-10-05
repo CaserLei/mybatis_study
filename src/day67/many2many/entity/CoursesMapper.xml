@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="many2many_Courses">
+	<resultMap type="day67.many2many.entity.Courses" id="CoursesMap">
+		<id property="id" column="cid"/>
+		<result property="name" column="cname"/>
+	    <collection property="studentList" resultMap="many2many_Student.StudentMap"/>
+	</resultMap>
+	
+	<select id="findCourseByStudentName" parameterType="string" resultMap="CoursesMap" >
+	    SELECT b.cid,b.cname,a.sname FROM studentss a,courses b,middles c WHERE a.sid=c.msid AND b.cid=c.mcid and a.sname=#{name}
+	</select>
+	
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student_day67_base">
+	<resultMap type="day67.base.entity.Student" id="studentMap">
+		<id property="id" column="id"/>
+		<result property="name" column="ename"/>
+		<result property="sal" column="sal"/>
+	</resultMap>
+	
+	<sql id="key">
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				id,
+			</if>
+			<if test="name!=null">
+				ename,
+			</if>
+			<if test="sal!=null">
+				sal,
+			</if>
+		</trim>
+	</sql>
+	<sql id="value">
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				#{id},
+			</if>
+			<if test="name!=null">
+				#{name},
+			</if>
+			<if test="sal!=null">
+				#{sal},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 动态添加 -->
+	<insert id="insertByDynaSQL" parameterType="day67.base.entity.Student">
+		insert into students(<include refid="key"/>) values(<include refid="value"/>)
+	</insert>
+
+	
+	<select id="findAllByMap" parameterType="map" resultMap="studentMap" >
+	    select id,ename,sal from students 
+	    <where>
+	       <if test="id != null">
+	          and id=#{id}
+	       </if>
+	       <if test="name != null">
+	          and ename=#{name}
+	       </if>
+	       <if test="sal != null">
+	          and sal=#{sal}
+	       </if>
+	    </where>
+	</select>
+	
+	<!-- 更新学生 -->
+	<update id="updateByEntity" parameterType="day67.base.entity.Student">
+	   update students 
+	   <set>
+	      <if test="name != null">
+	           ename=#{name},
+	      </if>
+	       <if test="sal != null">
+	           sal=#{sal},
+	      </if>
+	   </set>
+	   where id=#{id}
+	</update>
+	
+	<select id="findById" parameterType="int" resultMap="studentMap">
+	    select id,ename,sal from students where id=#{id}
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteByIds">
+	    delete from students where id in
+	    <!-- foreach用于迭代 -->
+	    <foreach collection="array" open="(" close=")" separator="," item="ids">
+	       #{ids}
+	    </foreach>
+	</delete>
+	
+	<delete id="deleteByIdsParamsIsList">
+	    delete from students where id in
+	    <!-- foreach用于迭代 -->
+	    <foreach collection="list" open="(" close=")" separator="," item="ids">
+			${ids}
+		</foreach>	
+	</delete>
+	
+	<insert id="add" parameterType="day67.base.entity.Student">
+		insert into students(id,ename,sal) values(#{id},#{name},#{sal})
+	</insert>
+	
+	
+</mapper>

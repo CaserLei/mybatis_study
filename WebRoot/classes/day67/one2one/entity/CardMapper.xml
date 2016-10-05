@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Card_day67">
+	<resultMap type="day67.one2one.entity.Card" id="CardMap">
+		<id property="id" column="cid"/>
+		<result property="num" column="cnum"/>
+	</resultMap>
+	
+	
+</mapper>
